@@ -1,5 +1,7 @@
+// Source code from https://www.chartfleau.com/tutorials/d3swarm/
+
 const width = 600;
-const height = 1200;
+const height = 900;
 
 let svg = d3
     .select("#notTheBees")
@@ -11,14 +13,13 @@ var url = "static/data/June_July_Earthquake.json";
 
 d3.json(url).then((data) => {
 
-    // the rest of our d3 code will go here
 
     let quakedata = data.features;
     let mags = []
     let depths = []
     quakedata.forEach(function(d) {
         mags.push(+d.properties.mag);
-        depths.push(d.geometry.coordinates[2]);
+        depths.push(+d.geometry.coordinates[2]);
     })
 
     let xScale = d3.scaleOrdinal().domain("Magnitude").range([0, 100]);
@@ -28,31 +29,29 @@ d3.json(url).then((data) => {
         .domain(d3.extent(mags))
         .range([height - 50, 50]);
 
-    // let color = d3.scaleOrdinal().domain(sectors).range(d3.schemePaired);
+    //Radius
+    let size = 2
 
-    //let marketcapDomain = d3.extent(data.map((d) => d["Market Cap"]));
-    // marketcapDomain = marketcapDomain.map((d) => Math.sqrt(d));
-    let size = 1.5 //d3.scaleLinear().domain(marketcapDomain).range([5, 30]);
-
+    //Draw each circle
     svg
         .selectAll(".circ")
         .data(quakedata)
         .enter()
         .append("circle")
         .attr("class", "circ")
-        .attr("stroke", "black")
         .attr("fill", "red")
         .attr("r", size)
         .attr("cx", (width / 2))
         .attr("cy", (d) => yScale(d.properties.mag));
 
+    //Force points to not overlap
     let simulation = d3
         .forceSimulation(quakedata)
         .force(
             "x",
             d3
             .forceX((width / 2))
-            .strength(0.1)
+            .strength(0.05)
         )
         .force(
             "y",
@@ -64,11 +63,13 @@ d3.json(url).then((data) => {
         )
         .force(
             "collide",
-            d3.forceCollide((d) => {
-                return;
-            })
+            d3
+            .forceCollide(2.5)
+            .strength(2)
         )
-        .alphaDecay(0)
+
+    //Timer and tick function for animation
+    .alphaDecay(0)
         .alpha(1)
         .on("tick", tick);
 
@@ -82,6 +83,6 @@ d3.json(url).then((data) => {
 
     let init_decay = setTimeout(function() {
         console.log("start alpha decay");
-        simulation.alphaDecay(0.5);
-    }, 10000);
+        simulation.alphaDecay(1);
+    }, 80000);
 });
