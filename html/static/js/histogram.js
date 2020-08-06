@@ -1,8 +1,10 @@
 //Source code https://www.d3-graph-gallery.com/graph/histogram_binSize.html
 
+
+
 // set the dimensions and margins of the graph
-var margin = { top: 10, right: 30, bottom: 50, left: 60 },
-    width = 460 - margin.left - margin.right,
+var margin = { top: 10, right: 45, bottom: 40, left: 60 },
+    width = 400 - margin.left - margin.right,
     height = 400 - margin.top - margin.bottom;
 
 // append the svg object to the body of the page
@@ -14,7 +16,7 @@ var svg = d3.select("#histogram")
     .attr("transform",
         "translate(" + margin.left + "," + margin.top + ")");
 
-// get the data
+// Load in data
 var url = "static/data/June_July_Earthquake.json";
 
 d3.json(url).then(function(response) {
@@ -58,51 +60,51 @@ d3.json(url).then(function(response) {
         .classed("axis-text", true)
         .text("Frequency")
 
-    // A function that builds the graph for a specific value of bin
+    // Update graph with selected number of bins
     function update(nBin) {
 
         // set the parameters for the histogram
         var histogram = d3.histogram()
-            .value(function(mags) { return mags; }) // I need to give the vector of value
-            .domain(x.domain()) // then the domain of the graphic
-            .thresholds(x.ticks(nBin)); // then the numbers of bins
+            .value(function(mags) { return mags; })
+            .domain(x.domain())
+            .thresholds(x.ticks(nBin));
 
         // And apply this function to data to get the bins
         var bins = histogram(mags);
 
-        // Y axis: update now that we know the domain
-        y.domain([0, d3.max(bins, function(d) { return d.length; })]); // d3.hist has to be called before the Y axis obviously
+        // Y axis: update so domain includes largest bin
+        y.domain([0, d3.max(bins, function(d) { return d.length; })]);
         yAxis
             .transition()
             .duration(1000)
             .call(d3.axisLeft(y));
 
         // Join the rect with the bins data
-        var u = svg.selectAll("rect")
+        var bars = svg.selectAll("rect")
             .data(bins)
 
-        // Manage the existing bars and eventually the new ones:
-        u
+        // Manage add new bars to existing bars:
+        bars
             .enter()
-            .append("rect") // Add a new rect for each new elements
-            .merge(u) // get the already existing elements as well
-            .transition() // and apply changes to all of them
+            .append("rect")
+            .merge(bars)
+            .transition()
             .duration(1000)
             .attr("class", "histo-bars")
             .attr("x", 1)
             .attr("transform", function(d) { return "translate(" + x(d.x0) + "," + y(d.length) + ")"; })
-            .attr("width", function(d) { return x(d.x1) - x(d.x0) - 1; })
+            .attr("width", function(d) { return x(d.x1) - x(d.x0); })
             .attr("height", function(d) { return height - y(d.length); })
 
 
 
         // If less bar in the new histogram, I delete the ones not in use anymore
-        u
+        bars
             .exit()
             .remove()
     }
     // Initialize with 20 bins
-    update(20)
+    update(25)
 
 
     // Listen to the button -> update if user change it
