@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Earthquake Tracker</title>
+    <title>Earthquake Dashboard</title>
 
     <!-- Leaflet CSS -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css" integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ==" crossorigin="" />
@@ -12,36 +12,31 @@
     <link rel="stylesheet" type="text/css" href="https://unpkg.com/leaflet.markercluster@1.0.3/dist/MarkerCluster.css">
     <link rel="stylesheet" type="text/css" href="https://unpkg.com/leaflet.markercluster@1.0.3/dist/MarkerCluster.Default.css">
 
-    <!-- Bootswatch -->
-
     <!-- Our CSS -->
     <link rel="stylesheet" type="text/css" href="static/css/style.css">
 
-    <!-- JS -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-
     <!-- Leaflet JS -->
     <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js" integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew==" crossorigin=""></script>
+    <script type="text/javascript" src="https://unpkg.com/leaflet.markercluster@1.4.1/dist/leaflet.markercluster.js"></script>
+    <script type="text/javascript" src="static/js/leaflet-heat.js"></script>
 
-    <!-- d3 JS -->
+    <!-- d3  & jquery JS -->
     <script src="https://d3js.org/d3.v5.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3-tip/0.7.1/d3-tip.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <!-- Bootswatch -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://bootswatch.com/4/solar/bootstrap.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 
     <!--Material Design Light JS-->
     <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
 
 
 
-    <!-- Marker Cluster JS -->
-    <script type="text/javascript" src="https://unpkg.com/leaflet.markercluster@1.4.1/dist/leaflet.markercluster.js"></script>
-
-    <!-- Leaflet heatmap plugin-->
-    <script type="text/javascript" src="static/js/leaflet-heat.js"></script>
-
     <!-- Our JS -->
     <script type="text/javascript" src="static/js/config.js"></script>
-    <!--<script type="text/javascript" src="static/js/map.js"></script>-->
-    <script type="text/javascript" src="static/js/app.js"></script>
-    <!-- <script type="text/javascript" src="static/js/testdata.js"></script> -->
 
 
 
@@ -54,37 +49,91 @@
 </head>
 
 <body>
-
-    <!-- MAP CONTAINER-->
+    <!--HEADER. Include dropdowns for selecting timeframe, and magnitude.
+     Placeholder urls until we write function to build url based off of search functions.
+     Order by decreasing magnitude and include disclaimer about only returning 20K points-->
     <div class="card container-fluid" style="margin-top:25px; margin-bottom: 25px;">
         <div style="text-align: center;">
-            <h1>Earthquake Map</h1>
+            <h1 class="title-text">USGS Earthquake Dashboard</h1>
+            <!-- <div>
+                <h3 id="vizTitle">Title</h3>
+            </div> -->
+            <label class="para-text" for="magFilter">Magnitude:</label>
+            <select id="magFilter" name="magFilter">
+                <option value="-1" selected>All</option>
+                <option value="7">7+</option>
+                <option value="6">6+</option>
+                <option value="5">5+</option>
+                <option value="4">4+</option>
+                <option value="3">3+</option>
+                <option value="2">2+</option>
+                <option value="1">1+</option>
+            </select>
+            <label class="para-text" for="geoFilter">State:</label>
+            <select id="geoFilter" name="geoFilter">
+            </select>
+
         </div>
-        <br>
-        <div id="mapParent" class="container-fluid"></div>
     </div>
-
-    <!--BEE SWARM CONTAINER-->
-
-    <div class="card container-fluid" style="margin-top:25px; margin-bottom: 25px;">
-        <div style="text-align: center;">
-            <h1>Magnitude Distribution</h1>
+    <hr>
+    <!-- Row with 2 containers. Includes box for map, and box for graph accordians-->
+    <div class="container"></div>
+    <!--Row w/ 2 colums. Small text column, col w/ map, bar, scatter, and histogram plots-->
+    <div class="row">
+        <!--Text box for insights, etc.-->
+        <div class="col-md-3 card" id=textcol>
+            <h1>TEXT PLACE HOLDER</h1>
+            <p>
+                <h2>More words here than earthquakes in California
+                </h2>
+            </p>
         </div>
-        <br>
+        <!--Col for plots. Map ontop of row w/ bar, scat, and hist-->
+        <div class="col-md-9">
+            <div class="row">
+                <!--Map box-->
+                <div class="col-md-12 card mapBorder" id="mapParent">
+                </div>
+            </div>
+            <!--Row with bar, scat, and hist-->
+            <div class="row" id="plotRow">
+                <!--Bar box-->
+                <div class="col-md-4 card" id="histogram">
+                </div>
+                <!--scatter box-->
+                <div class="col-md-4 card" id="scatterplz">
+                </div>
+                <!--histogram box-->
+                <div class="col-md-4 card" id="barchart">
+                    <!--dropdown to change # of bins-->
 
+                </div>
+                <p style="float: right">
+                    <label># bins</label>
+                    <input type="number" min="0" max="75" step="25" value="25" id="nBin">
+                </p>
+            </div>
+        </div>
     </div>
-    <div id="notTheBees" class="graph centered">
+    <hr>
+    <div class="row">
+        <div class="card col-md-12" id="timeplot">
+            <H1>TIME VS MAGNITUDE</H1>
+        </div>
     </div>
-    <div id="histogram" class="graph centered">
     </div>
-    <p>
-        <label># bins</label>
-        <input type="number" min="1" max="100" step="30" value="20" id="nBin">
-    </p>
-    </div>
-    <!--Bee Swarm JS-->
+
+
+    <!--New container row to include text bolx underneath the map. Include disclaimers and insights.-->
+    \
+
+    <!--JS for apps to run after page has loaded-->
     <!-- <script type="text/javascript" src="static/js/beeswarm.js"></script> -->
-    <script type="text/javascript" src="static/js/histogram.js"></script>
+    <!-- <script type="text/javascript" src="static/js/histogram.js"></script> -->
+    <script type="text/javascript" src="static/js/app.js"></script>
+    <script type="text/javascript" src="static/js/map.js"></script>
+
+
 </body>
 
 </html>
