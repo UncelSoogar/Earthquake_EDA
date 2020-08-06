@@ -1,0 +1,12 @@
+.axis-text {
+    font-family: sans-serif;
+    font-weight: bold;
+    fill: #551aaf;
+    text-anchor: middle;
+}
+
+.histo-bars {
+    fill: #69b3a2;
+    stroke: black;
+    stroke-width: .5;
+}
