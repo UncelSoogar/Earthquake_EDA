@@ -7,8 +7,8 @@ $(document).ready(function() {
         bottom: 60,
         left: 100
     };
-    let width = svgWidth - margin.left - margin.right;
-    let height = svgHeight - margin.top - margin.bottom;
+    let width = svgWidth - margin.left - margin.right; //1150
+    let height = svgHeight - margin.top - margin.bottom; // 420
     // Create an SVG wrapper, append an SVG group that will hold our chart, and shift the latter by left and top margins.
     let svg = d3.select("#scatterplz")
         .append("svg")
@@ -33,6 +33,9 @@ $(document).ready(function() {
             //d.properties.time = +d.properties.time;
             // d.properties.url = +d.properties.url;
         });
+
+
+
         // Step 2: Create scale functions
         // ==============================
         let xLinearScale = d3.scaleLinear()
@@ -45,23 +48,53 @@ $(document).ready(function() {
         // ==============================
         let bottomAxis = d3
 
-            .axisBottom(xLinearScale);
+            .axisBottom(xLinearScale)
+            .ticks((width + 2) / (height + 2) * 5)
+            .tickSize(-height - 6)
+            .tickPadding(5);
+
+
         let leftAxis = d3
-            .axisLeft(yLinearScale);
+            .axisLeft(yLinearScale)
+            .ticks(10)
+            .tickSize(-width - 6)
+            .tickPadding(10);
         // Step 4: Append Axes to the chart
         // ==============================
 
 
 
-        chartGroup.append("g")
+        let gX = chartGroup.append("g")
             .attr("transform", `translate(0, ${height})`)
-
-        .call(bottomAxis);
-        chartGroup.append("g")
+            .call(bottomAxis);
+        let gY = chartGroup.append("g")
             .call(leftAxis);
 
 
+        // Add Zoom (Comment this out if Zoom is messing up)
+        let zoom = d3.zoom()
+            .scaleExtent([1, 40])
+            .translateExtent([
+                [-100, -100],
+                [width + 90, height + 100]
+            ])
+            .on("zoom", zoomed);
+        d3.select("button")
+            .on("click", resetted);
 
+        svg.call(zoom);
+
+        function zoomed() {
+            circlesGroup.attr("transform", d3.event.transform);
+            gX.call(bottomAxis.scale(d3.event.transform.rescaleX(xLinearScale)));
+            gY.call(leftAxis.scale(d3.event.transform.rescaleY(yLinearScale)));
+        }
+
+        function resetted() {
+            svg.transition()
+                .duration(10)
+                .call(zoom.transform, d3.zoomIdentity);
+        }
 
         // Step 5: Create Circles
         // ==============================
@@ -113,15 +146,6 @@ $(document).ready(function() {
         // ==============================
         chartGroup.call(toolTip);
         // Step 8: Create event listeners to display and hide the tooltip
-        // ==============================
-        // circlesGroup.on("click", function(data) {
-        //         toolTip.show(data, this);
-        //     })
-        //     // onmouseout event
-        //     .on("mouseout", function(data, index) {
-        //         toolTip.hide(data);
-        //     });
-        // Use D3 to select element, change color and size
 
         circlesGroup.on("mouseover", function(data) {
                 toolTip.show(data, this)
