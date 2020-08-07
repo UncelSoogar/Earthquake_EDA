@@ -178,7 +178,7 @@ d3.json(url).then((data)  =>  {                
     // create a list of keys
     svg.append("circle").attr("cx", 750).attr("cy", 130).attr("r", 6).style("fill", "#839496")
     svg.append("circle").attr("cx", 750).attr("cy", 160).attr("r", 6).style("fill", "#839496")
-    svg.append("text").attr("x", 760).attr("y", 130).text("(ml) Local Recordings").style("font-size", "15px").attr("alignment-baseline", "middle")
+    svg.append("text").attr("x", 760).attr("y", 130).text("(ml) Magnitude Local ").style("font-size", "15px").attr("alignment-baseline", "middle")
     svg.append("text").attr("x", 760).attr("y", 160).text("(md) Magnitude Duration").style("font-size", "15px").attr("alignment-baseline", "middle")
     svg.append("circle").attr("cx", 750).attr("cy", 190).attr("r", 6).style("fill", "#839496")
     svg.append("circle").attr("cx", 750).attr("cy", 220).attr("r", 6).style("fill", "#839496")
