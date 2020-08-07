@@ -1,0 +1,46 @@
+html,
+body {
+    padding: 0;
+    margin: 0;
+}
+
+.bar {
+    fill: #580505;
+}
+
+.bar:hover {
+    fill: orange;
+}
+
+text.divergence {
+    font-size: 14px;
+    fill: #2F4A6D;
+}
+
+text.value {
+    font-size: 14px;
+}
+
+text.title {
+    font-size: 22px;
+    font-weight: 600;
+}
+
+text.label {
+    font-size: 14px;
+    font-weight: 400;
+}
+
+text.source {
+    font-size: 10px;
+}
+
+line {
+    stroke: gray;
+}
+
+line#limit {
+    stroke: #FED966;
+    stroke-width: 3;
+    stroke-dasharray: 3 6;
+}
