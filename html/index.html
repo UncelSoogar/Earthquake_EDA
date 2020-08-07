@@ -52,77 +52,93 @@
     <!--HEADER. Include dropdowns for selecting timeframe, and magnitude.
      Placeholder urls until we write function to build url based off of search functions.
      Order by decreasing magnitude and include disclaimer about only returning 20K points-->
-    <div class="card container-fluid" style="margin-top:25px; margin-bottom: 25px;">
+    <div class="card border-success" style="margin-top:25px; margin-bottom: 25px;">
         <div style="text-align: center;">
             <h1 class="title-text">USGS Earthquake Dashboard</h1>
-            <!-- <div>
-                <h3 id="vizTitle">Title</h3>
-            </div> -->
-            <label class="para-text" for="magFilter">Magnitude:</label>
-            <select id="magFilter" name="magFilter">
-                <option value="-1" selected>All</option>
-                <option value="7">7+</option>
-                <option value="6">6+</option>
-                <option value="5">5+</option>
-                <option value="4">4+</option>
-                <option value="3">3+</option>
-                <option value="2">2+</option>
-                <option value="1">1+</option>
-            </select>
-            <label class="para-text" for="geoFilter">State:</label>
-            <select id="geoFilter" name="geoFilter">
-            </select>
+
 
         </div>
     </div>
-    <hr>
     <!-- Row with 2 containers. Includes box for map, and box for graph accordians-->
     <div class="container"></div>
     <!--Row w/ 2 colums. Small text column, col w/ map, bar, scatter, and histogram plots-->
     <div class="row">
         <!--Text box for insights, etc.-->
-        <div class="col-md-3 card" id=textcol>
-            <h1>TEXT PLACE HOLDER</h1>
-            <p>
-                <h2>More words here than earthquakes in California
-                </h2>
-            </p>
+        <div class="card border-success col-md-3">
+            <div class="card-header">
+                <h1>Monthly Earthquake Summary</h1>
+            </div>
+            <div class="card-body">
+                <h3 class="card-text" id="textcol">Our map shows that, unsurprisingly, earthquakes generally occur along the tetonic plates. The magnitude is distributed mostly around a 1 on the Richter Scale. However, there is a spike of earthquakes between 4 and 5. When looking at a
+                    scatter plot of magnitude vs depth, there is a large increase of intermediate and deep earthquakes at the 4-5 range of magnitude.</h3>
+            </div>
         </div>
         <!--Col for plots. Map ontop of row w/ bar, scat, and hist-->
         <div class="col-md-9">
             <div class="row">
                 <!--Map box-->
+                <div class="col-md-12 card border-success">
+                    <div class="card-text">
+                        <div>
+                            <h3 id="vizTitle">Filter Map By: </h3>
+                        </div>
+                        <label class="para-text" for="magFilter"> Magnitude:</label>
+                        <select id="magFilter" name="magFilter">
+                            <option value="-1" selected>All</option>
+                            <option value="7">7+</option>
+                            <option value="6">6+</option>
+                            <option value="5">5+</option>
+                            <option value="4">4+</option>
+                            <option value="3">3+</option>
+                            <option value="2">2+</option>
+                            <option value="1">1+</option>
+                        </select>
+                        <label class="para-text" for="geoFilter">State:</label>
+                        <select id="geoFilter" name="geoFilter">
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
                 <div class="col-md-12 card mapBorder" id="mapParent">
                 </div>
             </div>
             <!--Row with bar, scat, and hist-->
             <div class="row" id="plotRow">
-                <!--Bar box-->
-                <div class="col-md-4 card" id="histogram">
+                <!--histogram box-->
+                <div class="col-md-4 card border-success" id="histogram">
+                    <p style="text-align: right;">
+                        <label>Number of Bins</label>
+                        <input type="number" min="0" max="75" step="25" value="25" id="nBin">
+                    </p>
                 </div>
                 <!--scatter box-->
-                <div class="col-md-4 card" id="scatterplz">
+                <div class="col-md-4 card border-success" id="scatterplz">
                 </div>
-                <!--histogram box-->
-                <div class="col-md-4 card" id="barchart">
+                <!--bar box-->
+                <div class="col-md-4 card border-success" id="barchart">
                     <!--dropdown to change # of bins-->
 
                 </div>
-                <p style="float: right">
-                    <label># bins</label>
-                    <input type="number" min="0" max="75" step="25" value="25" id="nBin">
-                </p>
+
             </div>
         </div>
     </div>
     <hr>
     <div class="row">
-        <div class="card col-md-12" id="timeplot">
+        <div class="card border-success col-md-12" id="timeplot">
             <H1>TIME VS MAGNITUDE</H1>
         </div>
     </div>
     </div>
-
+    <!--Footer-->
+    <div>
+        <footer class=" container-fluid alert alert-secondary" style="text-align: center">
+            <span>
+                <h4>Design and analysis by: <a href="https://github.com/anag33">Ana Gill, </a><a href="https://github.com/chris-krokus">Chris Krokus, </a><a href="https://github.com/UncelSoogar">Chris Lichliter, </a><a href="https://github.com/Chriztion">Christion, </a><a href="https://github.com/Jackt5">Jack Talbert. </a>   Source Code Hosted on <a href="https://github.com/Chriztion/Project2-Group-4">GitHub. </a>  Data from <a href="https://earthquake.usgs.gov/">United States Geological Survey</a></h4>
+            </span>
+        </footer>
+    </div>
 
     <!--New container row to include text bolx underneath the map. Include disclaimers and insights.-->
     \
