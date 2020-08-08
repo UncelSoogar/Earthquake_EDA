@@ -37,7 +37,9 @@
 
     <!-- Our JS -->
     <script type="text/javascript" src="static/js/config.js"></script>
-
+    <script type="text/javascript" src="static/js/filter.js"></script>
+    <script type="text/javascript" src="static/js/app.js"></script>
+    <script type="text/javascript" src="static/js/map.js"></script>
 
 
 
@@ -49,9 +51,7 @@
 </head>
 
 <body>
-    <!--HEADER. Include dropdowns for selecting timeframe, and magnitude.
-     Placeholder urls until we write function to build url based off of search functions.
-     Order by decreasing magnitude and include disclaimer about only returning 20K points-->
+    <!--HEADER  Include snazzy logo when I'm not tired-->
     <div class="card border-success" style="margin-top:25px; margin-bottom: 25px;">
         <div style="text-align: center;">
             <h1 class="title-text">USGS Earthquake Dashboard</h1>
@@ -59,22 +59,22 @@
 
         </div>
     </div>
-    <!-- Row with 2 containers. Includes box for map, and box for graph accordians-->
     <div class="container"></div>
     <!--Row w/ 2 colums. Small text column, col w/ map, bar, scatter, and histogram plots-->
     <div class="row">
         <!--Text box for insights, etc.-->
-        <div class="card border-success col-md-3">
+        <div class="card border-success col-md-2">
             <div class="card-header">
                 <h1>Monthly Earthquake Summary</h1>
             </div>
             <div class="card-body">
-                <h3 class="card-text" id="textcol">Our map shows that, unsurprisingly, earthquakes generally occur along the tetonic plates. The magnitude is distributed mostly around a 1 on the Richter Scale. However, there is a spike of earthquakes between 4 and 5. When looking at a
-                    scatter plot of magnitude vs depth, there is a large increase of intermediate and deep earthquakes at the 4-5 range of magnitude.</h3>
+                <p class="card-text para-text" id="textcol"> Our map shows that, unsurprisingly, earthquakes generally occur along the tectonic plates. The magnitude is distributed mostly around a 1 on the Richter Scale. However, there is a spike of earthquakes between 4 and 5. When looking at a
+                    scatter plot of magnitude vs depth, there is a large increase of intermediate and deep earthquakes at the 4-5 range of magnitude.</p>
+                <p class="card-text para-text"> Our analysis also show that, while there are many ways of measuring an earthquakes magnitude, the most commonly used methods are Magnitude Local (AKA the Richter Scale), Magnitude Duration, and Magnitude Body-Wave.</p>
             </div>
         </div>
         <!--Col for plots. Map ontop of row w/ bar, scat, and hist-->
-        <div class="col-md-9">
+        <div class="col-md-10">
             <div class="row">
                 <!--Map box-->
                 <div class="col-md-12 card border-success">
@@ -114,6 +114,7 @@
                 </div>
                 <!--scatter box-->
                 <div class="col-md-4 card border-success" id="scatterplz">
+                    <button type="button" class="btn btn-success reset" id="reset">Reset</button>
                 </div>
                 <!--bar box-->
                 <div class="col-md-4 card border-success" id="barchart">
@@ -124,30 +125,21 @@
             </div>
         </div>
     </div>
-    <hr>
+    <!-- Space for Jack's graph <hr>
     <div class="row">
         <div class="card border-success col-md-12" id="timeplot">
             <H1>TIME VS MAGNITUDE</H1>
         </div>
-    </div>
-    </div>
+    </div> -->
+
     <!--Footer-->
     <div>
         <footer class=" container-fluid alert alert-secondary" style="text-align: center">
             <span>
-                <h4>Design and analysis by: <a href="https://github.com/anag33">Ana Gill, </a><a href="https://github.com/chris-krokus">Chris Krokus, </a><a href="https://github.com/UncelSoogar">Chris Lichliter, </a><a href="https://github.com/Chriztion">Christion, </a><a href="https://github.com/Jackt5">Jack Talbert. </a>   Source Code Hosted on <a href="https://github.com/Chriztion/Project2-Group-4">GitHub. </a>  Data from <a href="https://earthquake.usgs.gov/">United States Geological Survey</a></h4>
+                <h4>Design and analysis by: <a href="https://github.com/anag33">Ana Gill,</a> <a href="https://github.com/chris-krokus">Chris Krokus,</a> <a href="https://github.com/Chriztion">Christion Lankford,</a> <a href="https://github.com/UncelSoogar">Chris Lichliter,</a> <a href="https://github.com/Jackt5">Jack Talbert.</a>    Source Code Hosted on <a href="https://github.com/Chriztion/Project2-Group-4">GitHub.</a>   Data from <a href="https://earthquake.usgs.gov/">United States Geological Survey</a></h4>
             </span>
         </footer>
     </div>
-
-    <!--New container row to include text bolx underneath the map. Include disclaimers and insights.-->
-    \
-
-    <!--JS for apps to run after page has loaded-->
-    <!-- <script type="text/javascript" src="static/js/beeswarm.js"></script> -->
-    <!-- <script type="text/javascript" src="static/js/histogram.js"></script> -->
-    <script type="text/javascript" src="static/js/app.js"></script>
-    <script type="text/javascript" src="static/js/map.js"></script>
 
 
 </body>

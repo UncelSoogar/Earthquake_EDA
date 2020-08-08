@@ -14,8 +14,7 @@
 
 .mapBorder {
     position: relative;
-    height: 400px;
-    width: 1500px;
+    height: 500px;
     border: 1px solid black;
 }
 
@@ -108,4 +107,71 @@
     text-align: center;
     color: white;
     text-size-adjust: 15px;
+}
+
+.tooltip {
+    position: absolute;
+    width: 90px;
+    height: 85px;
+    padding: 10px;
+    font: 16px Arial, Helvetica, sans-serif;
+    text-align: center;
+    color: #839496;
+    background: black;
+    border: 0;
+    border-radius: 10px;
+}
+
+html,
+body {
+    padding: 0;
+    margin: 0;
+}
+
+.bar {
+    fill: #580505;
+}
+
+.bar:hover {
+    fill: orange;
+}
+
+text.divergence {
+    font-size: 14px;
+    fill: #839496;
+}
+
+text.value {
+    font-size: 14px;
+    color: #839496
+}
+
+text.title {
+    font-size: 22px;
+    font-weight: 600;
+}
+
+text.label {
+    font-size: 14px;
+    font-weight: 400;
+    color: #839496
+}
+
+text.source {
+    font-size: 10px;
+    color: #839496
+}
+
+line {
+    stroke: gray;
+}
+
+line#limit {
+    stroke: #FED966;
+    stroke-width: 3;
+    stroke-dasharray: 3 6;
+}
+
+.reset {
+    width: 50px;
 }
