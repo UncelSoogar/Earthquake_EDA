@@ -34,7 +34,8 @@
     color: #839496;
     font-family: sans-serif;
     font-size: 30px;
-    text-align: left;
+    text-align: center;
+    text-shadow: 3px 3px black;
 }
 
 .para-text {

@@ -348,6 +348,14 @@ $(document).ready(function() {
                 return leaves.length;
             })
             .entries(quakedata);
+        magc2 = []
+        magCount.forEach(function(d) {
+            if (d.key !== "null") {
+                magc2.push(d)
+            }
+        })
+        magCount = magc2
+        console.log(magCount)
 
         console.log(magCount);
 
