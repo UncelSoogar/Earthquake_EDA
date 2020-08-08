@@ -8,7 +8,7 @@ $(document).ready(function() {
     let margin = {
         top: 20,
         right: 10,
-        bottom: 35,
+        bottom: 45,
         left: 50
     };
     let width = svgWidth - margin.left - margin.right; //1150
@@ -176,7 +176,7 @@ $(document).ready(function() {
     let margin = {
             top: 10,
             right: 45,
-            bottom: 50,
+            bottom: 60,
             left: 50
         },
         width = 500 - margin.left - margin.right,
@@ -304,7 +304,7 @@ $(document).ready(function() {
     let chartMargin = {
         top: 40,
         right: 10,
-        bottom: 30,
+        bottom: 40,
         left: 50
     };
     // Define dimensions of the chart area           
@@ -397,7 +397,7 @@ $(document).ready(function() {
         svg.append("text")
             .attr("text-anchor", "middle")
             .attr("x", chartWidth / 2)
-            .attr("y", chartHeight + chartMargin.top + 50)
+            .attr("y", chartHeight + chartMargin.top + 35)
             .classed("axis-text", true)
             .text("Magnitude Types");
 
