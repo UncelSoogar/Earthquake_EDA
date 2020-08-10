@@ -154,7 +154,7 @@ $(document).ready(function() {
             .attr("dy", "1em")
             .style("font", "14px")
             .attr("class", "axis-text")
-            .text("Depth from Center (KM)");
+            .text("Depth from Sea Level (KM)");
         chartGroup.append("text")
             .attr("transform", `translate(${width / 2}, ${height + 25})`)
             .attr("class", "axis-text")
